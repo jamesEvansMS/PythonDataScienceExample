@@ -4,7 +4,7 @@ import psycopg2.extras as extras
 import pandas as pd
 from config import postgresConfig as db
 
-def rename_columns(df,**to_replace):
+def rename_columns(self, df,**to_replace):
 	#existing_name=df.columns.to_list()
 	cur_names = df.columns.to_list()
 	# print(cur_names)
@@ -21,7 +21,7 @@ def rename_columns(df,**to_replace):
 		df.rename(columns={cName:cur_names[index]},inplace=True)
 	return df
 
-def execute_load_csv(conn, df, table):
+def execute_load_csv(self,conn, df, table):
 	tuples = [tuple(x) for x in df.to_numpy()]
 	to_replace={" ":"_","/":""}
 	df=rename_columns(df,**to_replace)
@@ -41,7 +41,7 @@ def execute_load_csv(conn, df, table):
 	print("the dataframe is inserted")
 
 
-def create_stock_table(conn,df):
+def create_stock_table(self, conn,df):
 	print(os.getcwd())
 	to_replace={" ":"_","/":""}
 	df=rename_columns(df,**to_replace)

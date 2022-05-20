@@ -2,7 +2,7 @@
 import pandas.io.sql as sqlio
 
 
-def execute_table_select(conn):
+def execute_table_select(self,conn):
 
 	query = "select * from data_science.stock_data order by Id"
 	try:
