@@ -4,7 +4,7 @@ import psycopg2
 from configparser import ConfigParser
 
 
-def config(filename='../database.ini', section='postgresql'):
+def config(self,filename='database.ini', section='postgresql'):
     print(os.getcwd())
     # create a parser
     parser = ConfigParser()
@@ -24,10 +24,9 @@ def config(filename='../database.ini', section='postgresql'):
     return db
 
 
-def connect():
+def connect(self):
     """ Connect to the PostgreSQL database server """
     conn = None
-
     try:
         # read connection parameters
         params = config()
