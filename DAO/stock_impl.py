@@ -9,8 +9,8 @@ def execute_table_select(conn):
 		dat=sqlio.read_sql_query(query,conn)
 		print(type(dat))
 	except Exception as e:
-		return e + " execute_house_select"
+		return str(e) + " execute_house_select"
 
-	return dat.to_json()
+	return dat
 
 
