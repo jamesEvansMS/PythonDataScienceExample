@@ -4,6 +4,7 @@ import psycopg2.extras as extras
 import pandas as pd
 from config import postgresConfig as db
 
+
 def rename_columns(self, df,**to_replace):
 	#existing_name=df.columns.to_list()
 	cur_names = df.columns.to_list()
