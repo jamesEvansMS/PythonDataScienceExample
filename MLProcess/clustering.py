@@ -38,7 +38,6 @@ class clustering:
     def fetch_data():
         conn = connect()
         tab=execute_table_select(conn)
-        #tab=pd.DataFrame(tab)
         return tab  #pd.DataFrame(execute_table_select(conn))
 
     def scaled_df(df_scaled):
@@ -92,3 +91,4 @@ sil_score=clustering.silhouette_score(15,df_scaled)
 fullDF=df.iloc[:,5:14].copy()
 fullDFscaled=pd.DataFrame(clustering.scaled_df(fullDF),columns=fullDF.columns)
 df=clustering.km_means_fit(8,fullDFscaled)
+print(df)
