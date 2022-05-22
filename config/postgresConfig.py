@@ -28,6 +28,7 @@ def connect(self):
     """ Connect to the PostgreSQL database server """
     conn = None
     try:
+        print(os.getcwd())
         # read connection parameters
         params = config()
 

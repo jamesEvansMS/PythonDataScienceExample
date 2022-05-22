@@ -31,17 +31,18 @@ warnings.filterwarnings("ignore")
 
 class clustering:
 
-    def __init__(self,df):
+    def __init__(self):
         pass
 
 
     def fetch_data():
         conn = connect()
-        return execute_table_select(conn)
+        tab=execute_table_select(conn)
+        #tab=pd.DataFrame(tab)
+        return tab  #pd.DataFrame(execute_table_select(conn))
 
     def scaled_df(df_scaled):
         df_scaled=StandardScaler().fit_transform(df_scaled)
-        #df_scaled=pd.DataFrame(df_scaled,columns=df_scaled.columns)
         return df_scaled
 
     def distortions(clusters,scaled_df):
@@ -82,13 +83,12 @@ class clustering:
 
 
 #I'll probably make these a series of API calls
+
 df=clustering.fetch_data()
-df=df.drop(columns='id')
-subset = df.iloc[:,4:14]
+subset = df.iloc[:,5:14].copy()
 df_scaled=pd.DataFrame(clustering.scaled_df(subset),columns=subset.columns)
 mean_d=clustering.distortions(15,df_scaled)
 sil_score=clustering.silhouette_score(15,df_scaled)
-print("Silscore", end='\n')
-print(sil_score)
-df=clustering.km_means_fit(8,df_scaled)
-print(df)
+fullDF=df.iloc[:,5:14].copy()
+fullDFscaled=pd.DataFrame(clustering.scaled_df(fullDF),columns=fullDF.columns)
+df=clustering.km_means_fit(8,fullDFscaled)
