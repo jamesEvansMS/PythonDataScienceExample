@@ -1,17 +1,24 @@
 
 import pandas.io.sql as sqlio
 
+from config.postgresConfig import db_connect
 
-def execute_table_select(conn):
 
+class db_dao:
 
-	query = "select * from data_science.stock_data order by Id"
-	try:
-		dat=sqlio.read_sql_query(query,conn)
-		print(type(dat))
-	except Exception as e:
-		return str(e) + " execute_house_select"
+	def __init__(self):
+		pass
+	def execute_table_select(self):
 
-	return dat
+		db=db_connect()
+		db_conn=db.connect()
 
+		query = "select * from data_science.stock_data order by Id"
+		try:
+			dat=sqlio.read_sql_query(query,db_conn)
+
+		except Exception as e:
+			return str(e) + " execute_table_select"
+
+		return dat
 
