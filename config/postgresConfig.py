@@ -1,8 +1,8 @@
 import os
-import psycopg2
 from configparser import ConfigParser
 import sqlalchemy
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy import exc
+
 
 class db_connect:
 
@@ -35,5 +35,5 @@ class db_connect:
             db_string = conn.config(filename='database.ini', section='database')
             db = sqlalchemy.create_engine(db_string)
             return db
-        except (Exception, psycopg2.DatabaseError) as error:
-            print(error)
+        except exc.SQLAlchemyError as e:
+            print(type(e))

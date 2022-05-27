@@ -1,5 +1,4 @@
 from flask import Flask
-
 from MLProcess.clustering import clustering
 
 app = Flask(__name__)
