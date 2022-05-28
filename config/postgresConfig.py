@@ -11,7 +11,7 @@ class db_connect:
 
 
     def config(self,filename='database.ini', section='database'):
-        print(os.getcwd())
+
         parser = ConfigParser()
         parser.read(filename)
 
@@ -22,7 +22,7 @@ class db_connect:
                 db[param[0]] = param[1]
         else:
             raise Exception('Section {0} not found in the {1} file'.format(section, filename))
-            print("file not found")
+
 
         db_string=url = f"postgresql://{db.get('user')}:{db.get('password')}@{db.get('host')}:{db.get('port')}/{db.get('database')}"
         return db_string
