@@ -1,4 +1,4 @@
-import os
+
 from configparser import ConfigParser
 import sqlalchemy
 from sqlalchemy import exc
@@ -10,8 +10,8 @@ class db_connect:
         pass
 
 
-    def config(self,filename='database.ini', section='database'):
-        print(os.getcwd())
+    def config(self,filename='../database.ini', section='database'):
+
         parser = ConfigParser()
         parser.read(filename)
 
@@ -22,7 +22,7 @@ class db_connect:
                 db[param[0]] = param[1]
         else:
             raise Exception('Section {0} not found in the {1} file'.format(section, filename))
-            print("file not found")
+
 
         db_string=url = f"postgresql://{db.get('user')}:{db.get('password')}@{db.get('host')}:{db.get('port')}/{db.get('database')}"
         return db_string
@@ -32,7 +32,7 @@ class db_connect:
         conn=db_connect()
         try:
 
-            db_string = conn.config(filename='database.ini', section='database')
+            db_string = conn.config(filename='../database.ini', section='database')
             db = sqlalchemy.create_engine(db_string)
             return db
         except exc.SQLAlchemyError as e:
