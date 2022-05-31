@@ -1,4 +1,4 @@
-import os
+
 from configparser import ConfigParser
 import sqlalchemy
 from sqlalchemy import exc
@@ -10,7 +10,7 @@ class db_connect:
         pass
 
 
-    def config(self,filename='database.ini', section='database'):
+    def config(self,filename='../database.ini', section='database'):
 
         parser = ConfigParser()
         parser.read(filename)
@@ -32,7 +32,7 @@ class db_connect:
         conn=db_connect()
         try:
 
-            db_string = conn.config(filename='database.ini', section='database')
+            db_string = conn.config(filename='../database.ini', section='database')
             db = sqlalchemy.create_engine(db_string)
             return db
         except exc.SQLAlchemyError as e:
