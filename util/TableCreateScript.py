@@ -2,9 +2,9 @@ import os
 import psycopg2
 import psycopg2.extras as extras
 import pandas as pd
-from config import postgresConfig as db
+from config import postgresConfig
 
-def rename_columns(self, df,**to_replace):
+def rename_columns(df,**to_replace):
 	#existing_name=df.columns.to_list()
 	cur_names = df.columns.to_list()
 	# print(cur_names)
@@ -21,7 +21,7 @@ def rename_columns(self, df,**to_replace):
 		df.rename(columns={cName:cur_names[index]},inplace=True)
 	return df
 
-def execute_load_csv(self,conn, df, table):
+def execute_load_csv(conn, df, table):
 	tuples = [tuple(x) for x in df.to_numpy()]
 	to_replace={" ":"_","/":""}
 	df=rename_columns(df,**to_replace)
@@ -41,7 +41,7 @@ def execute_load_csv(self,conn, df, table):
 	print("the dataframe is inserted")
 
 
-def create_stock_table(self, conn,df):
+def create_stock_table(conn,df):
 	print(os.getcwd())
 	to_replace={" ":"_","/":""}
 	df=rename_columns(df,**to_replace)
@@ -60,10 +60,11 @@ def create_stock_table(self, conn,df):
 		print(e)
 		return e
 	return 200
-os.chdir("../")
-df=pd.read_csv("stock_data.csv")
-conn=db.connect()
+
+df=pd.read_csv("../stock_data.csv")
+db_connect=postgresConfig.db_connect()
+db_string=db_connect.config()
+conn=psycopg2.connect(db_string)
+curr=conn.cursor()
 r=create_stock_table(conn,df)
-print(r)
-#if r == 200:
 execute_load_csv(conn,df,"data_science.stock_data")
